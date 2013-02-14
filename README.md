@@ -29,7 +29,7 @@ To have access to your google calendar go to :
 
 [Google API Console][1]
 
-and open a new api account :
+and open a new api account:
 
 1. click on "Services" on the rigth top menu
 2. click on the toggle button next to "Calendar API"
@@ -44,7 +44,7 @@ once you have your "installed app" access run :
 
     $ gcal-mapper --client_id [CLIENT_ID] --client_secret [CLIENT_SECRET]
 
-it should open a new page, click accept that the API acess your data.
+it should open a new page, click accept that the API access your data.
 this gives you ~/google_auth.yaml copy it on spec/file/google_auth.yaml
 (you can change path with --file /path/to/the/yaml_file.yaml)
 (you can change scope with --scope https://www.googleapis.com/another/scope)
@@ -53,12 +53,12 @@ with the service account make sure you save well the private key.
 You can use service account only if you manage your
 domain with google. But you have to go to your google apps manager :
 
-1. go to "Advenced tools" -> "Manage api client acess"
-2. enter your client id(service account) in "client name"
+1. go to "Advanced tools" -> "Manage API client access"
+2. enter your client id (service account) in "client name"
 3. enter "http(s)://www.google.com/calendar/feeds/" in "scope"
 4. click "authorize"
 
-### exemple ##
+### example ##
 
 when you manage to have the authorization to access your google calendar create your model
 
@@ -91,15 +91,15 @@ when you manage to have the authorization to access your google calendar create 
 
     end
 
-here is an example with Oauth2.0 authentification for installed app, as you can see it'is not a rails model and it work with AtiveRecord.
+here is an example with Oauth2.0 authentification for installed app, as you can see it is not a rails model and it work with ActiveRecord.
 
-you can find an exemple with rails there :
+you can find an example with rails there:
 
-[GcalMapper Rails exemple][3]
+[GcalMapper Rails example][3]
 
 ### configure ##
 
-`configure` is used to set your crendentials. You can see above an exemple for "installed app" here is one for "service account" :
+`configure` is used to set your credentials. You can see above an example for "installed app" here is one for "service account" :
 
     configure :file => '/path/to/the/private-key.p12',
               :client_email => 'service_account_email',
@@ -111,12 +111,12 @@ you can find an exemple with rails there :
 
 ### google_id ##
 
-`google_id` must be present, and you must give it the name of an existing string field in your DB. it store the  google event id and must be saved to keep your DB synchronize
+`google_id` must be present, and you must give it the name of an existing string field in your DB. It store the google event id and must be saved to keep your DB synchronize
 
 
 ### calendar ##
 
-if you want to synchronize more than one calendar just do someting like :
+if you want to synchronize more than one calendar just do someting like:
 
     calendar 'your_email@gmail.com'
     calendar 'other_accessible_calendar@gmail.com
@@ -124,7 +124,7 @@ if you want to synchronize more than one calendar just do someting like :
 
 ### field ##
 
-the minimal `field` declatration is
+the minimal `field` declaration is
 
     field 'name_of_your_db_column', :source => 'name_of_the_source'
 
@@ -134,12 +134,7 @@ It is possible to be more precise with the use of `:match` and `:default`
    only a part of the google data
  - `:default => 'default` is used to put default data in case of unmatching data
 
-Both are optional, but if you use `:match` without `:default`, the default value will be `nil`
-
-if the data you want to save is not always setted, it'is possible to use `:if_empty`.
-this will try to take data in another field if the source is empty. in the exemple you
-can see the usage as date.dateTime is not always present (for exemple long event that only
-date of start and date of end without hours).
+Both are optional, but if you use `:match` without `:default`, the default value will be `nil` if the data you want to save is not always setted, it is possible to use `:if_empty`. this will try to take data in another field if the source is empty. In the example you can see the usage as date.dateTime is not always present (for example long event that only date of start and date of end without hours).
 
 
 Compatibility
@@ -151,19 +146,14 @@ For now GcalMapper is only compatible with :
 
 it can be extended quite easly
 
-it is possible to use GcalMapper without ORM, juste include
+it is possible to use GcalMapper without ORM, just include
 
     GcalMapper::Mapper::Simple
 
-like this :
+like this:
 
     class Event
-      attr_accessor :id, :gid, :name, :description, :status, :start_at, :end_at, :created_at, :upated_at
-      include GcalMapper::Mapper::Simple
-
-      calendar do
-
-        configure :file => 'path/to/your/yaml/file.yaml'
+      attr_accessor :id, :gid, :name, :description, :status, :start_at, :end_at, :created_at, :upated_at include GcalMapper::Mapper::Simple calendar do  configure :file => 'path/to/your/yaml/file.yaml'
 
         calendar 'your_email@gmail.com'
 
@@ -284,9 +274,9 @@ here is the reference for the source data :
       }
     }
 
-for now you can access nearly all the data. you can acces all the the first and second degree key.
+for now you can access nearly all the data. you can acces all the first and second degree key.
 
-if you want the summary :
+if you want the summary:
 
     field 'summary', :source => 'summary'
 
@@ -307,7 +297,7 @@ that will look like :
 
 for things like `attendees` or `extendedProperties`, the only way of saving it is to save the string dump of that
 
-for `attendees` :
+for `attendees`:
 
     field 'attendees_dump', :source 'attendees'
 
@@ -317,7 +307,7 @@ for `extendedProperties` you can do `extendedProperties.private` but `extendedPr
 Test
 ----
 
-to launch test you need to have files to do both authentification methodes
+to launch test you need to have files to do both authentification methods
 
 execute, with the data of the installed app
 
@@ -347,7 +337,7 @@ test's are running!
 ### Warning ##
 
 Ruby 1.8.7 does not support the vcr cassettes generate by 1.9.x, but 1.8.7 cassettes work with 1.9.x.
-D'ont forget to remove the cassettes before testing with 1.8.7 if you already tested with 1.9.x.
+Do not forget to remove the cassettes before testing with 1.8.7 if you already tested with 1.9.x.
 
 Contributing
 ------------
